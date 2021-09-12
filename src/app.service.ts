@@ -4,9 +4,10 @@ import { CommandService } from './command.service';
 const BIN = '/opt/vc/bin/';
 const WIFI_CMD = `iwconfig`;
 const TEMP_CMD = `${BIN}vcgencmd measure_temp`;
+const GPUSPEED_CMD = `${BIN}vcgencmd measure_clock core`;
 const CPUSPEED_CMD = `${BIN}vcgencmd measure_clock arm`;
-const CPUVOLTS_CMD = `${BIN}vcgencmd measure_volts`;
 const CPUTHROTTLED_CMD = `${BIN}vcgencmd get_throttled`;
+const CPUVOLTS_CMD = `${BIN}vcgencmd measure_volts`;
 
 @Injectable()
 export class AppService {
@@ -24,6 +25,15 @@ export class AppService {
 
   getCpuSpeed() {
     const res = this.command.tryExec(CPUSPEED_CMD);
+    if (res === 'Unknown') {
+      return res;
+    }
+    const speed = parseInt(res) / 1000 / 1000 / 1000;
+    return `${speed.toFixed(2)} GHz`;
+  }
+
+  getGpuSpeed() {
+    const res = this.command.tryExec(GPUSPEED_CMD);
     if (res === 'Unknown') {
       return res;
     }

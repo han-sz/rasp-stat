@@ -15,11 +15,12 @@ function setValues({ ...rest }) {
 }
 
 async function checkStats() {
-  const [temp, cpu, volts, throttled /* wifiSpeed, wifiSignal */] =
+  const [temp, cpu, gpu, volts, throttled /* wifiSpeed, wifiSignal */] =
     await Promise.all(
       [
         'temp',
         'cpu',
+        'gpu',
         'volts',
         'throttled' /* 'wifi-speed', 'wifi-signal' */,
       ].map((item) => getStat(item)),
@@ -27,6 +28,7 @@ async function checkStats() {
   setValues({
     temp,
     cpu,
+    gpu,
     volts,
     throttled,
     /* 'wifi-speed': wifiSpeed,

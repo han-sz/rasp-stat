@@ -15,6 +15,13 @@ export class AppController {
     return { data: this.appService.getTemp() };
   }
 
+  @Get('/gpu')
+  getGpuSpeed() {
+    return {
+      data: this.appService.getGpuSpeed(),
+    };
+  }
+
   @Get('/cpu')
   getCpuSpeed() {
     return {

@@ -1,0 +1,13 @@
+services:
+  rasp-stat:
+    image: rasp-stat
+    platform: linux/arm/v7
+    container_name: rasp-stat
+    network_mode: host
+    # volumes:
+    #  - /sbin/iwconfig:/bin/iwconfig
+    devices:
+       - /dev/vchiq:/dev/vchiq
+    environment:
+      - STAT_PORT=4333
+    restart: unless-stopped
