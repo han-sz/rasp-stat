@@ -1,0 +1,35 @@
+<html>
+
+<head>
+    <script src="stats.js"></script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h3>Temperature</h3>
+            <p><span data-stat="temp">{{ temp }}</span>˚ C</p>
+        </div>
+        <div class="card">
+            <h3>Speed</h3>
+            <p><span data-stat="cpu">{{ cpu }}</span></p>
+        </div>
+        <div class="card">
+            <h3>Voltage</h3>
+            <p data-stat="volts">{{ volts }}</p>
+        </div>
+        <div class="card">
+            <h3>Throttled</h3>
+            <p data-stat="throttled">{{ throttled }}</p>
+        </div>
+        <div class="card">
+            <h3>WiFi</h3>
+            <p><span data-stat="wifi-speed">{{ wifi.speed }}</span></p>
+            <p><span data-stat="wifi-signal">{{ wifi.signal }}</span></p>
+        </div>
+        
+    </div>
+</body>
+
+</html>
