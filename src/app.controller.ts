@@ -39,6 +39,31 @@ export class AppController {
     return { data: this.appService.getThrottled() === '0x0' ? 'No' : 'Yes' };
   }
 
+  @Get('/mem')
+  getMemory() {
+    return { data: this.appService.getMemory() };
+  }
+
+  @Get('/memFree')
+  getMemoryFree() {
+    return { data: this.appService.getMemory().free };
+  }
+
+  @Get('/memTotal')
+  getMemoryTotal() {
+    return { data: this.appService.getMemory().total };
+  }
+
+  @Get('/memSwap')
+  getMemorySwap() {
+    return { data: this.appService.getMemory().swap };
+  }
+
+  @Get('/memSwapTotal')
+  getMemorySwapTotal() {
+    return { data: this.appService.getMemory().swapTotal };
+  }
+
   @Get('/wifi')
   getWifi() {
     return { data: this.appService.getWifi() };

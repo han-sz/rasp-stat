@@ -8,29 +8,44 @@ function setValues({ ...rest }) {
   const items = Object.keys(rest);
   items
     .map((item) => [item, document.querySelector(`[data-stat='${item}'`)])
-    .forEach(([item, element]) => {
-      element.textContent = rest[item];
-      console.log(item, element);
-    });
+    .forEach(([item, element]) => (element.textContent = rest[item]));
 }
 
 async function checkStats() {
-  const [temp, cpu, gpu, volts, throttled /* wifiSpeed, wifiSignal */] =
-    await Promise.all(
-      [
-        'temp',
-        'cpu',
-        'gpu',
-        'volts',
-        'throttled' /* 'wifi-speed', 'wifi-signal' */,
-      ].map((item) => getStat(item)),
-    );
+  const [
+    temp,
+    cpu,
+    gpu,
+    volts,
+    throttled,
+    memFree,
+    memTotal,
+    memSwap,
+    memSwapTotal,
+    /* wifiSpeed, wifiSignal */
+  ] = await Promise.all(
+    [
+      'temp',
+      'cpu',
+      'gpu',
+      'volts',
+      'throttled',
+      'memFree',
+      'memTotal',
+      'memSwap',
+      'memSwapTotal' /* 'wifi-speed', 'wifi-signal' */,
+    ].map((item) => getStat(item)),
+  );
   setValues({
     temp,
     cpu,
     gpu,
     volts,
     throttled,
+    memFree,
+    memTotal,
+    memSwap,
+    memSwapTotal,
     /* 'wifi-speed': wifiSpeed,
     'wifi-signal': wifiSignal, */
   });

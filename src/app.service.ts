@@ -8,6 +8,7 @@ const GPUSPEED_CMD = `${BIN}vcgencmd measure_clock core`;
 const CPUSPEED_CMD = `${BIN}vcgencmd measure_clock arm`;
 const CPUTHROTTLED_CMD = `${BIN}vcgencmd get_throttled`;
 const CPUVOLTS_CMD = `${BIN}vcgencmd measure_volts`;
+const MEMORY_CMD = `free -m | awk 'NR==2{print $7,$2} NR==3{print $2,$3}'`;
 
 @Injectable()
 export class AppService {
@@ -20,6 +21,7 @@ export class AppService {
       cpuSpeed: this.getCpuSpeed(),
       volts: this.getCpuVolts(),
       throttled: this.getThrottled(),
+      memory: this.getMemory(),
     };
   }
 
@@ -50,7 +52,7 @@ export class AppService {
   }
 
   getTemp() {
-    return this.command.tryExec(TEMP_CMD);
+    return this.command.tryExec(TEMP_CMD).replace(`'C`, '');
   }
 
   getWifi() {
@@ -68,6 +70,24 @@ export class AppService {
     return {
       signal,
       speed,
+    };
+  }
+
+  getMemory() {
+    const mem = this.command.exec(MEMORY_CMD);
+    if (mem === 'Unknown') {
+      return {
+        swap: mem,
+        free: mem,
+        total: mem,
+      };
+    }
+    const rows = mem?.split('\n').map((val) => val.split(/\s+/));
+    return {
+      swap: rows?.[1]?.[1],
+      swapTotal: rows?.[1]?.[0],
+      free: rows?.[0]?.[0],
+      total: rows?.[0]?.[1],
     };
   }
 }

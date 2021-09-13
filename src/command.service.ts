@@ -3,6 +3,15 @@ import { execSync } from 'child_process';
 
 @Injectable()
 export class CommandService {
+  exec(cmd = '', def = 'Unknown') {
+    try {
+      const out = execSync(cmd);
+      return out.toString('utf8');
+    } catch (err) {
+      return def;
+    }
+  }
+
   tryExec(cmd = '', def = 'Unknown') {
     try {
       const out = execSync(cmd);
@@ -13,8 +22,7 @@ export class CommandService {
   }
 
   private grab(stdout = '') {
-    // frequency=20
-    const output = /(\S+)=(\w+)/.exec(stdout);
+    const output = /(\S+)=(\S+)/.exec(stdout);
     return {
       key: output?.[1],
       value: output?.[2],

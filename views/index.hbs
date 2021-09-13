@@ -8,13 +8,18 @@
 <body>
     <div class="container">
         <div class="card">
-            <h3>Temperature</h3>
-            <p><span data-stat="temp">{{ temp }}</span>˚ C</p>
-        </div>
-        <div class="card">
             <h3>Speed</h3>
             <p><b>CPU:</b> <span data-stat="cpu">{{ cpu }}</span></p>
             <p><b>GPU:</b> <span data-stat="gpu">{{ gpu }}</span></p>
+        </div>
+        <div class="card">
+            <h3>Memory</h3>
+            <p><span data-stat="memFree">{{ memory.free }}</span> MB / <span data-stat="memTotal">{{ memory.total }}</span> MB</p>
+            <p><b>Swap:</b> <span data-stat="memSwap">{{ memory.swap }}</span> MB / <span data-stat="memSwapTotal">{{ memory.swapTotal }}</span> MB</p>
+        </div>
+        <div class="card">
+            <h3>Temperature</h3>
+            <p><span data-stat="temp">{{ temp }}</span>˚ C</p>
         </div>
         <div class="card">
             <h3>Voltage</h3>
