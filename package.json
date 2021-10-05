@@ -56,7 +56,6 @@
   "pkg": {
     "scripts": "dist/**/*.js",
     "assets": ["views/**/*", "static/**/*"],
-    "targets": [ "node14-macos-x64" ],
     "outputPath": "dist"
   },
   "jest": {
